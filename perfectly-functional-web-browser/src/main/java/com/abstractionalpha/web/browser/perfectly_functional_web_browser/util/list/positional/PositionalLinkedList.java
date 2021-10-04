@@ -121,24 +121,34 @@ public class PositionalLinkedList<E> implements PositionalList<E> {
 		return position(node);
 	}
 
+	/**
+	 * Adds an element between the head and the thing after the head.
+	 */
 	public Position<E> addFirst(E e) {
-		// TODO Auto-generated method stub
-		return null;
+		return addBetween(e, head, head.getNext());
 	}
 
+	/**
+	 * Adds an element between the tail and the thing before the tail.
+	 */
 	public Position<E> addLast(E e) {
-		// TODO Auto-generated method stub
-		return null;
+		return addBetween(e, tail.getPrev(), tail);
 	}
 
-	public Position<E> addBefore(Position<E> p, E e) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Adds an element before whatever p is inputed.
+	 */
+	public Position<E> addBefore(Position<E> p, E e) throws IllegalArgumentException {
+		Node<E> node = validate(p);
+		return addBetween(e, node.getPrev(), node);
 	}
 
-	public Position<E> addAfter(Position<E> p, E e) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Adds an element after whatever p is inputed.
+	 */
+	public Position<E> addAfter(Position<E> p, E e) throws IllegalArgumentException {
+		Node<E> node = validate(p);
+		return addBetween(e, node, node.getNext());
 	}
 
 	public E set(Position<E> p, E e) throws IllegalArgumentException {
