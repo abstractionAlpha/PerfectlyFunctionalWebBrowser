@@ -3,6 +3,10 @@ package com.abstractionalpha.web.browser.perfectly_functional_web_browser.util.l
 import com.abstractionalpha.web.browser.perfectly_functional_web_browser.util.Position;
 
 public class PositionalLinkedList<E> implements PositionalList<E> {
+	
+	private Node<E> head;
+	private Node<E> tail;
+	private int size;
 
 	public int size() {
 		// TODO Auto-generated method stub
