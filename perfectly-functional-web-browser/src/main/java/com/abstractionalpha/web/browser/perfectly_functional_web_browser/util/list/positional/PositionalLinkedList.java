@@ -104,6 +104,22 @@ public class PositionalLinkedList<E> implements PositionalList<E> {
 		Node<E> node = validate(p);
 		return position(node.getNext());
 	}
+	
+	/**
+	 * This private helper method adds a node between two other nodes.
+	 * 
+	 * @param e - the element we are adding to our list
+	 * @param before - the node we are adding e after
+	 * @param after - the node we are adding e before
+	 * @return e as a position
+	 */
+	private Position<E> addBetween(E e, Node<E> before, Node<E> after) {
+		Node<E> node = new Node<E>(e, before, after);
+		before.setNext(node);
+		after.setPrev(node);
+		size++;
+		return position(node);
+	}
 
 	public Position<E> addFirst(E e) {
 		// TODO Auto-generated method stub
