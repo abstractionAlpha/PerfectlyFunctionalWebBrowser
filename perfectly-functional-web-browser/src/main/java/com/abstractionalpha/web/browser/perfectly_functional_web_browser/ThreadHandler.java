@@ -5,7 +5,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 /**
  * Thread pool class. Implemented using an ArrayBlockingQueue.
  * 
- * @author Mason
+ * @author abstractionAlpha
  *
  */
 public class ThreadHandler {
@@ -36,6 +36,16 @@ public class ThreadHandler {
 			instance = new ThreadHandler(capacity);
 		
 		return instance;
+	}
+	
+	/**
+	 * Thread executor class. Takes things out of the queue and runs them.
+	 * 
+	 * @author abstractionAlpha
+	 *
+	 */
+	private class ThreadExecutor extends Thread {
+		
 	}
 
 }
