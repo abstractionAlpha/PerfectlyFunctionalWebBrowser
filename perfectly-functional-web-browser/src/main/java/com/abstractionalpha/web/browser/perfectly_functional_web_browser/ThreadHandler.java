@@ -12,13 +12,17 @@ public class ThreadHandler {
 	
 	private static ThreadHandler instance;
 	
+	private ArrayBlockingQueue<Thread> queue;
+	
 	private volatile int capacity;
 	
 	private static final int DEFAULT_CAPACITY = 5;
 	
-	private ThreadHandler(int capacity) {}
+	private ThreadHandler(int capacity) {
+		queue = new ArrayBlockingQueue<Thread>(capacity);
+	}
 	
-	private ThreadHandler() {}
+	private ThreadHandler() {this(DEFAULT_CAPACITY);}
 	
 	protected static ThreadHandler getInstance() {
 		if (instance == null)
