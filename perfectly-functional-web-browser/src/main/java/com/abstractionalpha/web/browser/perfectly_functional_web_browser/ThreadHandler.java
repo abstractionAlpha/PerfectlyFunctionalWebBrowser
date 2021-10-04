@@ -1,7 +1,10 @@
 package com.abstractionalpha.web.browser.perfectly_functional_web_browser;
 
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+
+import com.abstractionalpha.web.browser.perfectly_functional_web_browser.util.Position;
+import com.abstractionalpha.web.browser.perfectly_functional_web_browser.util.list.positional.PositionalLinkedList;
+import com.abstractionalpha.web.browser.perfectly_functional_web_browser.util.list.positional.PositionalList;
 
 /**
  * Thread pool class.
@@ -15,15 +18,16 @@ public class ThreadHandler {
 	
 	private volatile LinkedBlockingQueue<Thread> waiting;
 	
-	private volatile ArrayBlockingQueue<Thread> running;
+	private volatile PositionalList<PerfectlyFunctionalWebThread> running;
 	
 	private volatile int capacity;
 	
 	private static final int DEFAULT_CAPACITY = 5;
 	
 	private ThreadHandler(int capacity) {
+		this.capacity = capacity;
 		waiting = new LinkedBlockingQueue<Thread>();
-		running = new ArrayBlockingQueue<Thread>(capacity);
+		running = new PositionalLinkedList<PerfectlyFunctionalWebThread>();
 		new ThreadExecutor();
 	}
 	
@@ -33,7 +37,7 @@ public class ThreadHandler {
 		waiting.add(t);
 	}
 	
-	public void add (Runnable r) {
+	public void add(Runnable r) {
 		Thread t = new Thread(r);
 		add(t);
 	}
@@ -73,35 +77,42 @@ public class ThreadHandler {
 			while (PerfectlyFunctionalWebBrowser.isRunning()) {
 				
 				/**
-				 * Case 1: Updating runqueue.
-				 * If the front thread is no longer alive, it will be removed.
-				 * After this, we will skip the remaining run of this loop.
-				 * This way we can loop indefinitely until all completed queues are finished.
-				 * 
-				 * TODO: Replace the running queue with a positional linked list.
-				 * That way, a thread can remove itself from the PLL when it is finished running.
-				 */
-				if (!running.peek().isAlive()) {
-					curr = running.remove();
-					continue;
-				}
-				
-				/**
-				 * Case 2: Adding to runqueue.
-				 * If there is space in the runqueue, then we can just add something to it.
-				 * If the runqueue is full or there's nothing in the waiting queue then we do not care.
+				 * If PFWB is running, we can handle new requests.
+				 * If the running list is full, then we can skip to the next run.
+				 * Our threads are self-aware and will remove themselves when finished.
 				 */
 				if (running.size() < capacity) {
 					curr = waiting.poll();
 					
 					if (curr != null) {
-						curr.run();
-						running.add(curr);
+						new PerfectlyFunctionalWebThread(curr);
 					}
 					
 				}
 				
 			}
+		}
+		
+	}
+	
+	private class PerfectlyFunctionalWebThread extends Thread {
+		
+		private Thread runnable;
+		
+		private Position<PerfectlyFunctionalWebThread> pos;
+		
+		public PerfectlyFunctionalWebThread(Thread runnable) {
+			this.runnable = runnable;
+			run();
+		}
+		
+		public void run() {
+			pos = running.addFirst(this);
+			runnable.run();
+			try {
+				runnable.join();
+			} catch (InterruptedException e) {}
+			running.remove(pos);
 		}
 		
 	}
