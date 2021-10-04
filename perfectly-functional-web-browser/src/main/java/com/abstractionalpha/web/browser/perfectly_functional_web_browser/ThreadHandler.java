@@ -12,7 +12,7 @@ public class ThreadHandler {
 	
 	private static ThreadHandler instance;
 	
-	private ArrayBlockingQueue<Thread> queue;
+	private volatile ArrayBlockingQueue<Thread> queue;
 	
 	private volatile int capacity;
 	
@@ -40,6 +40,7 @@ public class ThreadHandler {
 	
 	/**
 	 * Thread executor class. Takes things out of the queue and runs them.
+	 * Uses polling, because this browser sucks on purpose.
 	 * 
 	 * @author abstractionAlpha
 	 *
