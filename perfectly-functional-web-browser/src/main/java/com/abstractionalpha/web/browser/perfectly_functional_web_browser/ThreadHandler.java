@@ -14,14 +14,14 @@ public class ThreadHandler {
 	
 	private ThreadHandler() {}
 	
-	public static ThreadHandler getInstance() {
+	protected static ThreadHandler getInstance() {
 		if (instance == null)
 			instance = new ThreadHandler();
 		
 		return instance;
 	}
 	
-	public static ThreadHandler getInstance(int capacity) {
+	protected static ThreadHandler getInstance(int capacity) {
 		if (instance == null)
 			instance = new ThreadHandler(capacity);
 		
