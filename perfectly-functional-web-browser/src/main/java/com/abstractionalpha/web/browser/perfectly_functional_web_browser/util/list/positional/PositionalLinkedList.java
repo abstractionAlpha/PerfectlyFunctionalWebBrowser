@@ -67,24 +67,33 @@ public class PositionalLinkedList<E> implements PositionalList<E> {
 		return size() == 0;
 	}
 
+	/**
+	 * Returns the element at the front of the list.
+	 * This is wrapped with position() so that if there is nothing in the list,
+	 * null will be returned.
+	 */
 	public Position<E> first() {
-		// TODO Auto-generated method stub
-		return null;
+		return position(head.getNext());
 	}
 
+	/**
+	 * Returns the elemtna tt he back of the list.
+	 * This is wrapped with position() so that if there is nothing in the list,
+	 * null will be returned.
+	 * For any following methods, we will not clarify this wrapper.
+	 */
 	public Position<E> last() {
-		// TODO Auto-generated method stub
-		return null;
+		return position(tail.getPrev());
 	}
 
 	public Position<E> before(Position<E> p) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
+		Node<E> node = validate(p);
+		return position(node.getPrev());
 	}
 
 	public Position<E> after(Position<E> p) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
+		Node<E> node = validate(p);
+		return position(node.getNext());
 	}
 
 	public Position<E> addFirst(E e) {
