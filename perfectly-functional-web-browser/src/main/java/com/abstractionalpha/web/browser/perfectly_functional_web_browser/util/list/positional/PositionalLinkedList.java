@@ -162,9 +162,24 @@ public class PositionalLinkedList<E> implements PositionalList<E> {
 		return toReturn;
 	}
 
+	/**
+	 * Removes the position p from the PLL and returns its element.
+	 */
 	public E remove(Position<E> p) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
+		Node<E> node = validate(p);
+		Node<E> before = node.getPrev();
+		Node<E> after = node.getNext();
+		
+		before.setNext(after);
+		after.setPrev(before);
+		size--;
+		
+		E toReturn = node.getElement();
+		node.setElement(null);
+		node.setNext(null);
+		node.setPrev(null);
+		
+		return toReturn;
 	}
 	
 	private static class Node<E> implements Position<E> {
