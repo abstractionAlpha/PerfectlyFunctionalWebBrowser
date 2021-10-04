@@ -77,7 +77,7 @@ public class PositionalLinkedList<E> implements PositionalList<E> {
 	}
 
 	/**
-	 * Returns the elemtna tt he back of the list.
+	 * Returns the element at the back of the list.
 	 * This is wrapped with position() so that if there is nothing in the list,
 	 * null will be returned.
 	 * For any following methods, we will not clarify this wrapper.
@@ -86,11 +86,20 @@ public class PositionalLinkedList<E> implements PositionalList<E> {
 		return position(tail.getPrev());
 	}
 
+	/**
+	 * Returns the element before p.
+	 * We validate p to safely cast to Node.
+	 */
 	public Position<E> before(Position<E> p) throws IllegalArgumentException {
 		Node<E> node = validate(p);
 		return position(node.getPrev());
 	}
 
+	/**
+	 * Returns the element after p.
+	 * We validate p to safely cast to Node.
+	 * For any following methods, we will not clarify this call.
+	 */
 	public Position<E> after(Position<E> p) throws IllegalArgumentException {
 		Node<E> node = validate(p);
 		return position(node.getNext());
