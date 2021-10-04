@@ -7,6 +7,17 @@ public class PositionalLinkedList<E> implements PositionalList<E> {
 	private Node<E> head;
 	private Node<E> tail;
 	private int size;
+	
+	/**
+	 * Constructor for PositionalLinkedList.
+	 * Creates a new PLL with a head and tail sentinel.
+	 */
+	public PositionalLinkedList() {
+		head = new Node<E>(null, null, null);
+		tail = new Node<E>(null, head, null);
+		head.setNext(tail);
+		size = 0;
+	}
 
 	public int size() {
 		// TODO Auto-generated method stub
