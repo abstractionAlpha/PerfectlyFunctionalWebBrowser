@@ -64,7 +64,7 @@ public class PositionalLinkedList<E> implements PositionalList<E> {
 		return null;
 	}
 	
-	private class PLLPosition<E> implements Position<E> {
+	private static class Node<E> implements Position<E> {
 
 		public E getElement() throws IllegalStateException {
 			// TODO Auto-generated method stub
