@@ -12,6 +12,8 @@ public class ThreadHandler {
 	
 	private static ThreadHandler instance;
 	
+	private ThreadHandler(int capacity) {}
+	
 	private ThreadHandler() {}
 	
 	protected static ThreadHandler getInstance() {
