@@ -24,9 +24,19 @@ public class ThreadHandler {
 	private ThreadHandler(int capacity) {
 		waiting = new LinkedBlockingQueue<Thread>();
 		running = new ArrayBlockingQueue<Thread>(capacity);
+		new ThreadExecutor();
 	}
 	
 	private ThreadHandler() {this(DEFAULT_CAPACITY);}
+	
+	public void add(Thread t) {
+		waiting.add(t);
+	}
+	
+	public void add (Runnable r) {
+		Thread t = new Thread(r);
+		add(t);
+	}
 	
 	protected static ThreadHandler getInstance() {
 		if (instance == null)
@@ -95,5 +105,8 @@ public class ThreadHandler {
 		}
 		
 	}
+	
+	// TODO implement a custom wrapper that makes takes anything runnable and adds generic handling.
+	// This way, we can make a PLL using the objects we're running.
 
 }
