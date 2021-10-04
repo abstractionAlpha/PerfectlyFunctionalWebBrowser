@@ -151,9 +151,15 @@ public class PositionalLinkedList<E> implements PositionalList<E> {
 		return addBetween(e, node, node.getNext());
 	}
 
+	/**
+	 * This method sets the position p's element to e,
+	 * and then returns its old element.
+	 */
 	public E set(Position<E> p, E e) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
+		Node<E> node = validate(p);
+		E toReturn = node.getElement();
+		node.setElement(e);
+		return toReturn;
 	}
 
 	public E remove(Position<E> p) throws IllegalArgumentException {
