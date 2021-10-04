@@ -18,6 +18,40 @@ public class PositionalLinkedList<E> implements PositionalList<E> {
 		head.setNext(tail);
 		size = 0;
 	}
+	
+	/**
+	 * This method checks if an input position, p, is a valid node.
+	 * If it is, it will be casted to a node and returned.
+	 * 
+	 * @param p - the input position for some method
+	 * @return p as a Node
+	 * @throws IllegalArgumentException - p isn't a Node or isn't in list
+	 */
+	private Node<E> validate(Position<E> p) throws IllegalArgumentException {
+		if (!(p instanceof Node))
+			throw new IllegalArgumentException("Invalid position");
+		
+		Node<E> node = (Node<E>) p;
+		if (node.getNext() == null)
+			throw new IllegalArgumentException("Input position no longer valid");
+		
+		return node;
+	}
+	
+	/**
+	 * This method casts a node to a position.
+	 * If the head or tail is passed in, null will be returned.
+	 * This is to encapsulate the sentinel nodes.
+	 * 
+	 * @param node - the node we want to return
+	 * @return node as a position, or null if node is head/tail
+	 */
+	private Position<E> position(Node<E> node) {
+		if (node == head || node == tail)
+			return null;
+		
+		return node;
+	}
 
 	public int size() {
 		// TODO Auto-generated method stub
