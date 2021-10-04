@@ -53,14 +53,18 @@ public class PositionalLinkedList<E> implements PositionalList<E> {
 		return node;
 	}
 
+	/**
+	 * Returns the number of elements in the list.
+	 */
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
+	/**
+	 * Returns whether or not the list is empty.
+	 */
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return size() == 0;
 	}
 
 	public Position<E> first() {
